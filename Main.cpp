@@ -13,8 +13,9 @@ int main(int argc, char const *argv[])
 		std::cin >> uri;
 		R.process(uri);
 		int meanValue = R.mean(uri);
+		double standardDiv = R.sd(uri);
 		std::cout << "Mean: " << meanValue << std::endl;
-
+		std::cout << "Standard Div: " << standardDiv << std::endl;
 	}
 	return 0;
 }

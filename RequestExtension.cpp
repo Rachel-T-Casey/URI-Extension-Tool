@@ -1,6 +1,6 @@
 #include "RequestExtension.hpp"
 #include <vector>
-
+#include <cmath>
 RequestExtension::RequestExtension(int maxBins)
 {
     this->m_maxBins = maxBins;
@@ -42,10 +42,16 @@ const double RequestExtension::mean(const std::string& uri)
 }
 const double RequestExtension::sd(const std::string& uri)
 {
-    return 0;
+    double meanValue = this->mean(uri);
+    double standardDeviation = 0.0;
+    int totalMatches = matches(uri);
+    auto range = m_responseMap.equal_range(uri);
+    for(auto it = range.first; it != range.second; it++)
+    {
+        standardDeviation += std::pow(it->second - meanValue, 2);
+    }
+    return std::sqrt(standardDeviation / static_cast<double>(totalMatches));
 }
-
-
 
 Histogram RequestExtension::getHistogram()
 {
