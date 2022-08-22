@@ -14,8 +14,9 @@ public:
 
 private:
     void fillBins();
-    int m_binSize;
+    double m_binSize;
     int m_maxBins;
+
     std::vector<int> m_bins;
     std::vector<int> m_values;
     std::vector<int> m_occurances;

@@ -7,7 +7,7 @@
 int main(int argc, char const *argv[])
 {
 
-	for(int i = 1; i < 16; i++)
+	for(int i = 1; i < 10; i++)
 	{
 		std::cout << "Number of bins: " << i << std::endl;
 		std::ifstream input;

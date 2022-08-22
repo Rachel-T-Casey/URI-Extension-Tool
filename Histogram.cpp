@@ -20,38 +20,45 @@ Histogram::Histogram(std::vector<int>& data, int maxBins)
             continue;
         }
         m_occurances.back()++;
-    }
+    }/*
     if(maxBins > m_values.size())
         m_maxBins = m_values.size();
     else
         m_maxBins = maxBins;
+
+    */
+        m_maxBins = maxBins;
     fillBins();
 
 }
-void Histogram::fillBins()
+
+
+void Histogram::fillBins()  
 {
     
     int minVal = m_values.front();
     int maxVal = m_values.back() + 1;
-    double unroundedBinSize = (maxVal - minVal) / static_cast<double>(m_maxBins);
-    int roundedBinSize = (maxVal - minVal) / m_maxBins;
-    double roundingError = unroundedBinSize - roundedBinSize;
-    while(roundingError * m_maxBins > roundedBinSize)
-    {
-        m_maxBins--;
-        unroundedBinSize = (maxVal - minVal) / static_cast<double>(m_maxBins);
-        roundingError = unroundedBinSize - roundedBinSize;
-    }
+    double range = maxVal - (minVal-1);
+
+    int binCount = m_maxBins;
+    m_binSize = range / binCount;
+    std::cout << "Bin Count: " << m_maxBins << std::endl;
     for(int i = 0; i < m_maxBins; i++)
     {
         m_bins.push_back(0);
     }
-    m_binSize = roundedBinSize;
     for(int i = 0; i < m_values.size(); i++)
-    {
-        int targetBin = ((m_values[i] - minVal) / m_binSize);
+    {  
+        int targetBin = (m_values[i] - minVal) / m_binSize;
+     //   targetBin = floor(targetBin);
         m_bins[targetBin] += m_occurances[i];
+    } 
+    for(int i = 0; i < m_bins.size(); i++)
+    {   
+        std::cout << "Bin: " << i << " Range: " << minVal + (i * m_binSize) << "-" << minVal + ((i+1) * m_binSize) << std::endl;
     }
+    std::cout << "Max: " << maxVal << std::endl;
+    std::cout << "Min: " << minVal << std::endl;
     //final bin might fail
 
 
@@ -82,3 +89,20 @@ std::vector<int> Histogram::binRanges()
     std::vector<int> n;
     return n;
 }
+
+
+
+
+/*
+
+        I. 
+
+
+
+
+
+
+
+
+
+*/
