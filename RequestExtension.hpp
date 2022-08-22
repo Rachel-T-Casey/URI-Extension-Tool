@@ -6,7 +6,8 @@
 #include <map>
 #include <string>
 #include <vector>
-
+#include <chrono>
+#include <iostream>
 class RequestExtension : public Request
 {
 public:
@@ -19,6 +20,8 @@ protected:
     void finish();
 private:
     std::multimap<std::string, int> m_responseMap;
+    std::chrono::time_point<std::chrono::steady_clock> m_startTime;
     int m_maxBins;
+    std::string m_uriKey;
 };
 #endif
