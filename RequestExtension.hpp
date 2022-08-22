@@ -23,5 +23,10 @@ private:
     std::chrono::time_point<std::chrono::steady_clock> m_startTime;
     int m_maxBins;
     std::string m_uriKey;
+
+    int matches(const std::string& uri);
+    long sumURIResponseTimes(const std::string& uri);
+
+
 };
 #endif
