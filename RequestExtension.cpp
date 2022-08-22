@@ -55,8 +55,11 @@ const double RequestExtension::sd(const std::string& uri)
 
 Histogram RequestExtension::getHistogram()
 {
-    int * ptr;
-    Histogram h(ptr, 0);
+    std::vector<int> responseTimes;
+    for(const auto &it: m_responseMap)
+        responseTimes.push_back(it.second);
+
+    Histogram h(responseTimes, m_maxBins);
     return h;
 } 
 

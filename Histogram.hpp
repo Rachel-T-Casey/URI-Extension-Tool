@@ -4,17 +4,21 @@
 class Histogram
 {
 public:
-    Histogram(int* data, int bins);
-    void Normalize();
-    const int BinSize();
-    const int MaxBins();
-    const int BinRange(int binNumber);
-    std::vector<int> BinData();
-    std::vector<int> BinRanges();
+    Histogram(std::vector<int>& data, int maxBins);
+    void normalize();
+    const int binSize();
+    const int maxBins();
+    const int binRange(int binNumber);
+    std::vector<int> binData();
+    std::vector<int> binRanges();
 
 private:
+    void fillBins();
     int m_binSize;
     int m_maxBins;
+    std::vector<int> m_bins;
+    std::vector<int> m_values;
+    std::vector<int> m_occurances;
 
 };
 

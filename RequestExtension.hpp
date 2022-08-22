@@ -27,7 +27,11 @@ public:
 
     /**
     * Returns the standard deviation between responses
-    * for a a given URI measured in milliseconds
+    * for a a given URI measured in m
+    * 
+    * 
+    * 
+    illiseconds
     * 
     * @param [in] The URI being measured
     * 

@@ -3,19 +3,30 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 int main(int argc, char const *argv[])
 {
-	RequestExtension R(3);
-	for(int i = 0; i < 1000; i++)
+
+	for(int i = 1; i < 16; i++)
 	{
-		std::cout << "Enter a uri:" << std::endl;
-		std::string uri;
-		std::cin >> uri;
-		R.process(uri);
-		int meanValue = R.mean(uri);
-		double standardDiv = R.sd(uri);
-		std::cout << "Mean: " << meanValue << std::endl;
-		std::cout << "Standard Div: " << standardDiv << std::endl;
+		std::cout << "Number of bins: " << i << std::endl;
+		std::ifstream input;
+		input.open("data.txt");
+		RequestExtension r(i);
+		while(input.good())
+		{
+			std::string uri;
+			std::getline(input, uri);
+			r.process(uri);
+		}
+		input.close();
+		Histogram h = r.getHistogram();
+		std::vector<int> data;
+		data = h.binData();
+		for(int n = 0; n < data.size(); n++)
+		{
+			std::cout << data[n] << std::endl;
+		}
 	}
-	return 0;
+	
 }
