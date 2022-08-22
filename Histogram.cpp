@@ -36,27 +36,17 @@ void Histogram::fillBins()
     double unroundedBinSize = (maxVal - minVal) / static_cast<double>(m_maxBins);
     int roundedBinSize = (maxVal - minVal) / m_maxBins;
     double roundingError = unroundedBinSize - roundedBinSize;
-    std::cout << "MAX BINS BEFORE: " << m_maxBins << std::endl;
     while(roundingError * m_maxBins > roundedBinSize)
     {
         m_maxBins--;
         unroundedBinSize = (maxVal - minVal) / static_cast<double>(m_maxBins);
         roundingError = unroundedBinSize - roundedBinSize;
     }
-    std::cout << "MAX BINS AFTER: " << m_maxBins << std::endl;
     for(int i = 0; i < m_maxBins; i++)
     {
         m_bins.push_back(0);
     }
     m_binSize = roundedBinSize;
-
-    std::cout << "M size: " << m_values.size() << std::endl;
-    std::cout << "Max bins: " << m_maxBins << std::endl;
-    std::cout << "Max - minVal % m_maxBins: " << (maxVal - minVal) % m_maxBins << std::endl;
-    std::cout << "Bin size: " << m_binSize << std::endl;
-    std::cout <<"Range: " << maxVal - minVal << std::endl;
-    std::cout << "Max: " << maxVal << std::endl;
-    std::cout << "Min: " << minVal << std::endl;
     for(int i = 0; i < m_values.size(); i++)
     {
         int targetBin = ((m_values[i] - minVal) / m_binSize);
