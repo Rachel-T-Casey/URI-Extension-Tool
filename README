@@ -1,0 +1,17 @@
+RequestExtension for Astiri 
+
+This project expands the request class of the astiri application to help provide
+a greater statistical understanding of processed URIs.
+
+
+How to install:
+
+Place all .hpp .cpp files in the same directory and run the makefile. Compiling all .cpp
+files with g++ 11.2.0 is an option if you can't run makefiles
+
+
+How to use:
+
+Run the Output file and follow prompts. Test mode allows verification of functionality by
+running automated test cases. Manual mode allows the user to enter URIs and view appropriate data
+
