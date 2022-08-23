@@ -1,11 +1,33 @@
 #include "RequestExtension.hpp"
 #include "testRequestExtension.hpp"
-
+#include <exception>
 
 TestRequestExtension::TestRequestExtension(int bins) : RequestExtension(bins)
 {
 
 }
+
+bool TestRequestExtension::testAll() {
+
+    bool anyFailed = false;
+
+    if(!testMean())
+        anyFailed = true;
+
+    if(!testSD())
+        anyFailed = true;
+
+    if(!testMatches())
+        anyFailed = true;
+
+    if(!testSumURIResponseTimes())
+        anyFailed = true;
+
+    if(!testGetHistogram())
+        anyFailed = true;
+
+    return !anyFailed;
+}   
 bool TestRequestExtension::testMean()
 {
     m_responseMap.clear();

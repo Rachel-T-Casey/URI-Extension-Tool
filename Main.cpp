@@ -12,11 +12,15 @@ int main(int argc, char const *argv[])
 {
 	
 	TestRequestExtension tre(10);
-	tre.testMean();
-	tre.testMatches();
-	tre.testSD();
-	tre.testSumURIResponseTimes();
-	tre.testGetHistogram();
+	tre.testAll();
 
+	std::vector<int> foo;
+	foo.push_back(1);
+	foo.push_back(2);
+	foo.push_back(3);
+
+	TestHistogram th(foo, 2);
+	th.testNormalize();
+	th.testParseData();
 	return 0;
 }

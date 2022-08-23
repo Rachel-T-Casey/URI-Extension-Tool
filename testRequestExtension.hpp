@@ -1,9 +1,11 @@
-
+#ifndef TESTREQUESTEXTENSION_HPP
+#define TESTREQUESTEXTENSION_HPP
 #include "RequestExtension.hpp"
 class TestRequestExtension : public RequestExtension
 {
     public:
         TestRequestExtension(int bins);
+        bool testAll();
         bool testMean();
         bool testSD();
         bool testSumURIResponseTimes();
@@ -13,5 +15,4 @@ class TestRequestExtension : public RequestExtension
         bool testFinish();
 
 };
-
-
+#endif

@@ -1,19 +1,22 @@
-/*#ifndef TESTHISTOGRAM_HPP
+#ifndef TESTHISTOGRAM_HPP
 #define TESTHISTOGRAM_HPP
 
-class testHistogram: public Histogram
-{
+#include "Histogram.hpp"
+#include <vector>
+
+class TestHistogram: public Histogram {
+
 public:
+
+    TestHistogram(std::vector<int>& data, int maxBins);
+
     bool testNormalize();
-    bool testBinSize();
-    bool testMaxBins();
-    bool testBinRange();
-    bool testBinValue();
-    bool testBinData();
-    bool testBinRanges();
+    bool testParseData();
     bool testFillBins();
+    
 private:
-    void fillBins();
+   
+
 };
+
 #endif
-*/
