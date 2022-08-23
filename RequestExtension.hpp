@@ -20,7 +20,7 @@ public:
     * 
     * @param [in] The URI being measured
     * 
-    * @param [out] The mean response time measured in
+    * @return The mean response time measured in
     * milliseconds for the given URI
     */
     const double mean(const std::string& uri);
@@ -31,16 +31,34 @@ public:
     * 
     * @param [in] The URI being measured
     * 
-    * @param [out] The standard deviation between 
+    * @return The standard deviation between 
     * responses measured in milliseconds time in for 
     * the given URI
     */
     const double sd(const std::string& uri);
    
+    /**
+     * Builds histogram by combining all parsed URIs. 
+     * Histogram will normalize and process the response
+     * time for all uris processed by this class
+     * 
+     * @return A histogram which has normalized and stored all
+     * uris that have been processed 
+     */
 
     Histogram getHistogram();
+
+    /**
+     * Takes in a uri and builds a histogram using data only 
+     * corresponding to the parsed uri
+     * 
+     * @return [in] A histogram which has normalized and stored 
+     * response times for the parsed uri
+     */
     Histogram getHistogram(std::string& uri);
-protected:
+    
+private:
+
     /**
     * Sets member variable m_startTime with
     * current time.
@@ -49,45 +67,39 @@ protected:
     * @param [in] The URI of the request endpoint
     */
     void start(const std::string& uri);
+    
     /**
-    * Start processing the request in the child class
-    *
-    * @param [in] The URI being processed
+    * Subtracts current time from m_startTime and converts
+    * this into an int with ms units. The  Inserts a pair <string, int> 
+    * into m_responseMap ith the string being the uri being processed 
+    * and the int being the response time
     */
+
     void finish();
-    /**
-    * Calculates the uri processing time in milliseconds
-    * using current time, and m_startTime. Then builds 
-    * a pair<string int> with m_uriKey and the calculated 
-    * time and inserts it into m_responseMap
-    *
-    * @param [in] The URI being processed
-    */
-private:
+
+
     /**
     * Scans through m_responseMap and returns the
     * number of times a uri has been processed
     *
-    * @param [in] The URI being processed
+    * @param The URI being processed
     * 
-    * @param [out] The total number of occurances
+    * @return The total number of occurances
     * of the given URI
     */
     int matches(const std::string& uri);
-   
+
     /**
     * Scans through m_responseMap and returns the 
     * aggregate total time of responses for a given
     * uri
     *
-    * @param [in] The URI being processed
+    * @param A uri 
     * 
-    * @param [out] The aggregate total response time
-    * for the given URI
+    * @return The sum of all response times for a given uri
     */
     long sumURIResponseTimes(const std::string& uri);
     
-    //Member Variables:
 
     // Stores processed URIs with the response time 
     std::multimap<std::string, int> m_responseMap;

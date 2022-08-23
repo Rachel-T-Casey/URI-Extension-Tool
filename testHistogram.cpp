@@ -1,24 +1,30 @@
 
 #include "testHistogram.hpp"
+
 #include <vector>
 #include <exception>
 #include <iostream>
 #include <algorithm>
 #include <cmath>
-TestHistogram::TestHistogram(std::vector<int>& data, int maxBins) : Histogram(data, maxBins)
-{
+
+TestHistogram::TestHistogram(std::vector<int>& data, int maxBins) 
+: Histogram(data, maxBins){
 
 }
 
-bool TestHistogram::testAll()
-{
+bool TestHistogram::testAll(){
+
        bool anyFailed = false;
-       if(!testNormalize())
+
+       if(!testNormalize()){
               anyFailed = true;
-       if(!testParseData())
+       }
+       if(!testParseData()){
               anyFailed = true;
-       if(!testFillBins())
+       }
+       if(!testFillBins()){
               anyFailed = true;
+       }
        return anyFailed;
 }
 bool TestHistogram::testNormalize() 
@@ -104,20 +110,16 @@ bool TestHistogram::testParseData()
        return true;
 }
 
-bool TestHistogram::testFillBins()
-{
+bool TestHistogram::testFillBins(){
 
-     
-    for(int i = 2; i < 20; i++)
-    {
+    for(int i = 2; i < 20; i++){
        m_maxBins = i;
        m_binSize = 1 / static_cast<double>(m_maxBins);
        m_occurances.clear();
        m_bins.clear();
        m_values.clear();
        m_normalizedValues.clear();
-       for(int n = 0; n < m_maxBins; n++)
-       {   
+       for(int n = 0; n < m_maxBins; n++){   
               m_bins.push_back(0);
        }
        std::vector<int> data;
@@ -135,8 +137,7 @@ bool TestHistogram::testFillBins()
        parseData(data);
        normalizeData();
        fillBins();
-       if(m_bins[0] == 0 || m_bins[m_bins.size() -1] == 0)
-       {
+       if(m_bins[0] == 0 || m_bins[m_bins.size() -1] == 0){
               std::cout << "FAILED TEST CASE" << std::endl;
               return false;
        }
