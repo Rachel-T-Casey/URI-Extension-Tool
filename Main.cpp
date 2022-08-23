@@ -22,5 +22,6 @@ int main(int argc, char const *argv[])
 	TestHistogram th(foo, 2);
 	th.testNormalize();
 	th.testParseData();
+	th.testFillBins();
 	return 0;
 }

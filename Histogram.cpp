@@ -9,7 +9,7 @@ Histogram::Histogram(std::vector<int>& data, int maxBins)
     int maxVal = m_values.back();
     if(minVal == maxVal)
     {
-        throw std::length_error("Histogram requires at least to unique values:");
+        throw std::length_error("Histogram requires at least two unique values:");
     }
     m_maxBins = maxBins;
     m_binSize = 1 / static_cast<double>(m_maxBins);
@@ -28,11 +28,11 @@ void Histogram::parseData(std::vector<int>& data)
     {
         throw std::length_error("Histogram requires at least two unique values: ");
     }
-    m_occurances.clear();
-    m_values.clear();
+
 
     sort(data.begin(), data.end());
-  
+    m_occurances.clear();
+    m_values.clear();
 
     m_occurances.push_back(1);
     m_values.push_back(data[0]);
@@ -73,7 +73,7 @@ double Histogram::normalize(double value, double minimumValue, double maximumVal
 {
     if(minimumValue == maximumValue)
     {
-        throw std::length_error("Histogram requires at least two unique values:"); 
+        throw std::length_error("Normalization failed. Histogram requires at least two unique values:"); 
     }
     return (value - minimumValue) / (maximumValue - minimumValue);
 }
