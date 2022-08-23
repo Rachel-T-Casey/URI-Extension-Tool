@@ -6,19 +6,24 @@
 Histogram::Histogram() {
     
 }
-Histogram::Histogram(std::vector<int>& data, int maxBins)
-{
+Histogram::Histogram(std::vector<int>& data, int maxBins){
     parseData(data);
     int minVal = m_values.front();
     int maxVal = m_values.back();
-    if(minVal == maxVal)
-    {
-        throw std::length_error("Histogram requires at least two unique values:");
+    if(minVal == maxVal){
+        throw std::length_error("Histogram requires at least two unique values");
     }
-    m_maxBins = maxBins;
+    if(maxBins < 2)
+    {
+        throw std::length_error("Histograms must have at least two bins");
+    }
+    if(m_maxBins < m_values.size()){
+        m_maxBins = m_values.size();
+    } else {
+        m_maxBins = maxBins;
+    }
     m_binSize = 1 / static_cast<double>(m_maxBins);
-    for(int i = 0; i < m_maxBins; i++)
-    {   
+    for(int i = 0; i < m_maxBins; i++){   
         m_bins.push_back(0);
     }
 
@@ -26,13 +31,10 @@ Histogram::Histogram(std::vector<int>& data, int maxBins)
     fillBins();
 }
 
-void Histogram::parseData(std::vector<int>& data)
-{
-    if(data.size() < 2)
-    {
-        throw std::length_error("Histogram requires at least two unique values: ");
+void Histogram::parseData(std::vector<int>& data){
+    if(data.size() < 2){
+        throw std::length_error("Histogram requires at least two unique values");
     }
-
 
     sort(data.begin(), data.end());
     m_occurances.clear();
@@ -40,10 +42,8 @@ void Histogram::parseData(std::vector<int>& data)
 
     m_occurances.push_back(1);
     m_values.push_back(data[0]);
-    for(unsigned int i = 1; i < data.size(); i++)
-    {
-        if(data[i] != data[i-1])
-        {
+    for(unsigned int i = 1; i < data.size(); i++){
+        if(data[i] != data[i-1]){
             m_occurances.push_back(1);
             m_values.push_back(data[i]);
             continue;
@@ -53,8 +53,7 @@ void Histogram::parseData(std::vector<int>& data)
 }
 void Histogram::normalizeData()
 {
-    for(unsigned int i = 0; i < m_values.size(); i++)
-    {
+    for(unsigned int i = 0; i < m_values.size(); i++){
         double value = m_values[i];
         double lowest = m_values.front();
         double largest = m_values.back(); 
@@ -64,8 +63,7 @@ void Histogram::normalizeData()
 }
 void Histogram::fillBins()  
 {
-    for(unsigned int i = 0; i < m_normalizedValues.size(); i++)
-    {  
+    for(unsigned int i = 0; i < m_normalizedValues.size(); i++){  
         int targetBin = (m_normalizedValues[i]) / m_binSize;
         if(targetBin == m_maxBins)
             targetBin--;
@@ -73,21 +71,18 @@ void Histogram::fillBins()
     } 
 }
 
-double Histogram::normalize(double value, double minimumValue, double maximumValue)
+double Histogram::normalize(double value, double min, double max)
 {
-    if(minimumValue == maximumValue)
-    {
-        throw std::length_error("Normalization failed. Histogram requires at least two unique values:"); 
+    if(min == max){
+        throw std::length_error("Histogram requires at least two unique values"); 
     }
-    return (value - minimumValue) / (maximumValue - minimumValue);
+    return (value - min) / (max - min);
 }
 
-std::vector<double> Histogram::getBins()
-{
+std::vector<double> Histogram::getBins(){
     return m_bins;
 }
 
-double Histogram::getBinSize()
-{
+double Histogram::getBinSize(){
     return m_binSize;
 }
