@@ -27,11 +27,7 @@ public:
 
     /**
     * Returns the standard deviation between responses
-    * for a a given URI measured in m
-    * 
-    * 
-    * 
-    illiseconds
+    * for a a given URI measured in milliseconds
     * 
     * @param [in] The URI being measured
     * 
@@ -108,5 +104,6 @@ private:
     // The last uri processed
     std::string m_uriKey;
 
+    friend class TestRequestExtension;
 };
 #endif

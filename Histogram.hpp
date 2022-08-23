@@ -23,6 +23,9 @@ private:
     std::vector<int> m_occurances;
     std::vector<double> m_normalizedValues;
     std::vector<double> m_normalizedOccurances;
+
+    friend class TestHistogram;
+
 };
 
 #endif

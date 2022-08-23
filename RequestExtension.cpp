@@ -36,15 +36,19 @@ int RequestExtension::matches(const std::string& uri)
 }
 const double RequestExtension::mean(const std::string& uri)
 {
+    int totalMatches = this->matches(uri);
+    if(totalMatches < 1)
+        return 0;
     long uriResponseSum = this->sumURIResponseTimes(uri);
-    int matches = this->matches(uri);
-    return static_cast<double>(uriResponseSum) / static_cast<double>(matches);
+    return static_cast<double>(uriResponseSum) / static_cast<double>(totalMatches);
 }
 const double RequestExtension::sd(const std::string& uri)
-{
+{   
+    int totalMatches = matches(uri);
+    if(totalMatches < 1)
+        return 0;
     double meanValue = this->mean(uri);
     double standardDeviation = 0.0;
-    int totalMatches = matches(uri);
     auto range = m_responseMap.equal_range(uri);
     for(auto it = range.first; it != range.second; it++)
     {

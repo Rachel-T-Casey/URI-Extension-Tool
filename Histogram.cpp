@@ -4,14 +4,14 @@
 #include <iostream>
 Histogram::Histogram(std::vector<int>& data, int maxBins)
 {
-    if(data.size() == 0)
+    if(data.size() < 2)
     {
-        //edge case
+        throw std::length_error("Histogram requires at least two unique values: ");
     }
     sort(data.begin(), data.end());
     m_occurances.push_back(1);
     m_values.push_back(data[0]);
-    for(int i = 1; i < data.size(); i++)
+    for(unsigned int i = 1; i < data.size(); i++)
     {
         if(data[i] != data[i-1])
         {
@@ -20,24 +20,23 @@ Histogram::Histogram(std::vector<int>& data, int maxBins)
             continue;
         }
         m_occurances.back()++;
-    }/*
-    if(maxBins > m_values.size())
-        m_maxBins = m_values.size();
-    else
-        m_maxBins = maxBins;
+    }
 
-    */
-        m_maxBins = maxBins;
-
+    int minVal = m_values.front();
+    int maxVal = m_values.back();
+    if(minVal == maxVal)
+    {
+        throw std::length_error("Histogram requires at least to unique values:");
+    }
+    m_maxBins = maxBins;
     fillBins();
-
 }
 
 
 void Histogram::fillBins()  
 {
 
-    for(int i = 0; i < m_values.size(); i++)
+    for(unsigned int i = 0; i < m_values.size(); i++)
     {
         double value = m_values[i];
         double lowest = m_values.front();
@@ -46,12 +45,6 @@ void Histogram::fillBins()
         double normalizedValue = normalize(value, lowest, largest);
         m_normalizedValues.push_back(normalizedValue);
     }
-    double minVal = m_normalizedValues.front();
-  //  int maxVal = m_values.back() + 1;
-    double maxVal = m_normalizedValues.back();
-
-    //double range = maxVal - (minVal-1);
-    double range = maxVal - (minVal -1);
 
     double binCount = m_maxBins;
     m_binSize = 1 / binCount;
@@ -61,7 +54,7 @@ void Histogram::fillBins()
         m_bins.push_back(0);
     }
 
-    for(int i = 0; i < m_normalizedValues.size(); i++)
+    for(unsigned int i = 0; i < m_normalizedValues.size(); i++)
     {  
 
         int targetBin = (m_normalizedValues[i]) / m_binSize;
@@ -69,12 +62,14 @@ void Histogram::fillBins()
             targetBin--;
         m_bins[targetBin] += m_occurances[i];
     } 
-  
-
 }
 
 double Histogram::normalize(double value, double minimumValue, double maximumValue)
 {
+    if(minimumValue == maximumValue)
+    {
+        throw;
+    }
     return (value - minimumValue) / (maximumValue - minimumValue);
 }
 const int Histogram::binSize()
@@ -104,19 +99,3 @@ std::vector<int> Histogram::binRanges()
     std::vector<int> n;
     return n;
 }
-
-
-/*
-
-       I. Grab value from values
-       II. Grab occurance from occurance
-       III. Pass 
-
-
-
-
-
-
-
-
-*/
