@@ -5,11 +5,12 @@ class Histogram
 {
 public:
     Histogram(std::vector<int>& data, int maxBins);
-    void normalize();
+    double normalize(double value, double small, double large);
     const int binSize();
     const int maxBins();
-    const int binRange(int binNumber);
-    std::vector<int> binData();
+    const std::pair<double, double> binRange(int binNumber);
+    const double binValue(int binNumber);
+    std::vector<double> binData();
     std::vector<int> binRanges();
 
 private:
@@ -17,10 +18,11 @@ private:
     double m_binSize;
     int m_maxBins;
 
-    std::vector<int> m_bins;
+    std::vector<double> m_bins;
     std::vector<int> m_values;
     std::vector<int> m_occurances;
-
+    std::vector<double> m_normalizedValues;
+    std::vector<double> m_normalizedOccurances;
 };
 
 #endif
