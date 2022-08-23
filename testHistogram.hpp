@@ -13,10 +13,11 @@ public:
     bool testNormalize();
     bool testParseData();
     bool testFillBins();
-    
+    bool testAll();
 private:
 
 
 };
 
 #endif
+

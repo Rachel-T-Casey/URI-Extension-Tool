@@ -2,6 +2,10 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+
+Histogram::Histogram() {
+    
+}
 Histogram::Histogram(std::vector<int>& data, int maxBins)
 {
     parseData(data);
@@ -76,4 +80,14 @@ double Histogram::normalize(double value, double minimumValue, double maximumVal
         throw std::length_error("Normalization failed. Histogram requires at least two unique values:"); 
     }
     return (value - minimumValue) / (maximumValue - minimumValue);
+}
+
+std::vector<double> Histogram::getBins()
+{
+    return m_bins;
+}
+
+double Histogram::getBinSize()
+{
+    return m_binSize;
 }

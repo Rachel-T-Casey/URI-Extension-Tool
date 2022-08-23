@@ -10,6 +10,17 @@ TestHistogram::TestHistogram(std::vector<int>& data, int maxBins) : Histogram(da
 
 }
 
+bool TestHistogram::testAll()
+{
+       bool anyFailed = false;
+       if(!testNormalize())
+              anyFailed = true;
+       if(!testParseData())
+              anyFailed = true;
+       if(!testFillBins())
+              anyFailed = true;
+       return anyFailed;
+}
 bool TestHistogram::testNormalize() 
 {
        try {

@@ -66,4 +66,14 @@ Histogram RequestExtension::getHistogram()
     Histogram h(responseTimes, m_maxBins);
     return h;
 } 
-
+Histogram RequestExtension::getHistogram(std::string&uri)
+{
+    std::vector<int> responseTimes;
+    auto range = m_responseMap.equal_range(uri);
+    for(auto it = range.first; it != range.second; it++)
+    {
+        responseTimes.push_back(it->second);
+    }
+    Histogram h(responseTimes, m_maxBins);
+    return h;
+}

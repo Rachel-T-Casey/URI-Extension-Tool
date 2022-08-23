@@ -4,9 +4,13 @@
 class Histogram
 {
 public:
+    Histogram();
     Histogram(std::vector<int>& data, int maxBins);
-    double normalize(double value, double small, double large);
+    std::vector<double> getBins();
+    double getBinSize();
+    
 private:
+    double normalize(double value, double small, double large);
     void parseData(std::vector<int>& data);
     void normalizeData();
     void fillBins();

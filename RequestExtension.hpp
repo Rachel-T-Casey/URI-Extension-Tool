@@ -38,11 +38,8 @@ public:
     const double sd(const std::string& uri);
    
 
-    /**
-    * NOT IMPLEMENTED YET 
-    */
     Histogram getHistogram();
-
+    Histogram getHistogram(std::string& uri);
 protected:
     /**
     * Sets member variable m_startTime with
